@@ -25,6 +25,7 @@ public class SetPoints {
 	protected final Color SELECTEDCOLOR = Color.YELLOW;										// Color of the selected point
 	protected final Color COLORLINE = Color.GREEN;												// Color of the Interpolation function
 	protected final int SPEED = 5;																				// Speed at which the points can be moved
+	protected final int SCALE = 1;																				// Scale at which the X axis is displayed
 	
 	private ArrayList<Point> points;																			// Implementation of a Set of Points
 	private int selectedPoint;																						// Selected point to move
@@ -37,7 +38,7 @@ public class SetPoints {
 		setSelectedPoint(0);
 		points = new ArrayList<Point>();
 		for(int i = 0; i < size; i++) {
-			points.add(new Point(i, (int) (Math.random() * MAXIMUM)));
+			points.add(new Point(i * SCALE, (int) (Math.random() * MAXIMUM)));
 		}
 	}
 
@@ -80,7 +81,7 @@ public class SetPoints {
 	 * Move the selected point to the right
 	 */
 	public void selectedRight() {
-		if(getSelectedPoint() != getPoints().size() - 1 && getPoints().get(getSelectedPoint()).getxAxis() > getPoints().get(getSelectedPoint() + 1).getxAxis() - SPEED)
+		if(getSelectedPoint() < getPoints().size() - 1 && getPoints().get(getSelectedPoint()).getxAxis() < getPoints().get(getSelectedPoint() + 1).getxAxis() - SPEED)
 		getPoints().get(getSelectedPoint()).setxAxis(getPoints().get(getSelectedPoint()).getxAxis() + SPEED);
 	}
 	
@@ -99,7 +100,7 @@ public class SetPoints {
 	
 	public void drawPoints(Graphics graphicObject, int width, int height, int borders) {
 		if(!getPoints().isEmpty()) {
-			int factorX = width / size();																							// Conversion factor for xAxis
+			int factorX = width / size() / SCALE;																							// Conversion factor for xAxis
 			int factorY = height / MAXIMUM;																						// Conversion factor for yAxis
 		
 			ArrayList<Float> xAxis = new ArrayList<Float>();
@@ -113,8 +114,8 @@ public class SetPoints {
 				graphicObject.setColor(COLORLINE);
 				SplineInterpolator interpolation = new SplineInterpolator(xAxis, yAxis);
 				for(int i = 0; i < width; i++) {
-					float interpolationYAxis = interpolation.function((float) i / ((float) width / (float) size()));
-					float interpolationYAxist1 = interpolation.function((float) (i + 1) / ((float) width / (float) size()));
+					float interpolationYAxis = interpolation.function((float) i * SCALE / ((float) width / (float) size()));
+					float interpolationYAxist1 = interpolation.function((float) (i * SCALE + 1) / ((float) width / (float) size()));
 					graphicObject.drawLine(i + borders, (int) (interpolationYAxis * factorY + borders), i + 1 + borders, (int) (interpolationYAxist1 * factorY + borders));
 				}
 			}

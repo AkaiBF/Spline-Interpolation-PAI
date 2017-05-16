@@ -90,9 +90,9 @@ public class GraphicScreen extends JPanel implements KeyListener {
 		if(event.getKeyCode() == UPARROW)
 			getSetPoints().selectedUp();
 		if(event.getKeyCode() == LEFTARROW)
-			getSetPoints().selectToLeft();
+			getSetPoints().selectedLeft();
 		if(event.getKeyCode() == RIGHTARROW)
-			getSetPoints().selectToRight();
+			getSetPoints().selectedRight();
 		if(event.getKeyCode() == DOWNARROW)
 			getSetPoints().selectedDown();
 		if(event.getKeyCode() == AKEY)

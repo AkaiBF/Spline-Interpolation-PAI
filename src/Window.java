@@ -23,6 +23,7 @@ public class Window extends JFrame implements ActionListener {
 
 	protected final int WIDTH = 1200;																						// By default width of the frame
 	protected final int HEIGHT = 500;																						// By default height of the frame
+	protected final int DEFAULTSETSIZE = 15;																		// By default size of the points set
 
 	private Controller controller;																							// Controller of the application
 	private GraphicScreen graphicScreen;																				// Visualization panel of the application
