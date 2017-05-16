@@ -1,16 +1,53 @@
 import java.util.ArrayList;
 
+/**
+ * Calculator of a Monotone Cubic Interpolation. It firsts calculates the tangents and then it creates the function.
+ * For more information, see https://en.wikipedia.org/wiki/Monotone_cubic_interpolation 
+ * 
+ * Country: Spain
+ * University: Universidad de La Laguna
+ * Subject: Programación de Aplicaciones Interactivas
+ * Repository: https://github.com/AkaiBF/Spline-Interpolation-PAI
+ * 
+ * @author Ernesto Echeverría González
+ * @email alu0100881622@ull.edu.es
+ * @since 05-16-2017
+ * @version 1.0.0
+ */
+
 public class SplineInterpolator {
-	private ArrayList<Float> xAxis;
-	private ArrayList<Float> yAxis;
-	private float[] tangents;
+	private ArrayList<Float> xAxis;											// Array of X axis values of the points
+	private ArrayList<Float> yAxis;											// Array of Y axis values of the points
+	private float[] tangents;														// Array of tangents' increment between two points. The tangents are set as the average of two secants
 	
+	/**
+	 * Three-attributes constructor
+	 * @param xAxis Array of X axis of points
+	 * @param yAxis Array of Y axis of points
+	 * @param tangents Array of tangents' increment between two points. The tangents are set as the average of two secants
+	 */
 	public SplineInterpolator(ArrayList<Float> xAxis, ArrayList<Float> yAxis, float[] tangents) {
 		this.setxAxis(xAxis);
 		this.setyAxis(yAxis);
 		this.setTangents(tangents);
 	}
-	
+	/**
+	 * Two-attributes constructor
+	 * @param xAxis Array of X axis of points
+	 * @param yAxis Array of Y axis of points
+	 */
+	public SplineInterpolator(ArrayList<Float> xAxis, ArrayList<Float> yAxis) {
+		SplineInterpolator interpolator = new SplineInterpolator(xAxis, yAxis, null).createMonotoneCubicSpline(xAxis, yAxis);
+		this.xAxis = interpolator.getxAxis();
+		this.yAxis = interpolator.getyAxis();
+		this.tangents = interpolator.getTangents();
+	}
+	/**
+	 * Calculator of tangents using the Monotone Cubic Interpolation method
+	 * @param xAxis Array of X axis of points
+	 * @param yAxis Array of Y axis of points
+	 * @return New SplineInterpolator containing all the necessary attributes to create the function
+	 */
 	public SplineInterpolator createMonotoneCubicSpline(ArrayList<Float> xAxis, ArrayList<Float> yAxis) {
 		int numPoints = getxAxis().size();
 		float[] secants = new float[numPoints - 1];
@@ -44,7 +81,11 @@ public class SplineInterpolator {
 		}
 		return new SplineInterpolator(xAxis, yAxis, tangents);
 	}
-	
+	/**
+	 * Function of the Interpolation using a Hermite interpolation
+	 * @param xValue X axis value
+	 * @return Y axis value
+	 */
 	public float function(float xValue) {
 		int numPoint = getxAxis().size();
 		if(Float.isNaN(xValue)) {
@@ -68,22 +109,9 @@ public class SplineInterpolator {
 		return (getyAxis().get(counter) * (1 + 2 * theta) + interval * getTangents()[counter] * theta) * (1 - theta) * (1 - theta) +
 				(getyAxis().get(counter + 1) * (3 - 2 * theta) + interval * getTangents()[counter + 1] * (theta - 1)) * theta * theta;
 	}
-	
-	public String toString() {
-		String output = new String("[");
-		int numPoints = getxAxis().size();
-		for(int i = 0; i < numPoints; i++) {
-			if(i != 0) {
-				output += ", ";
-			}
-			output += "(" + getxAxis().get(i);
-			output += ", " + getyAxis().get(i);
-			output += ": " + getTangents()[i];
-		}
-		output += "]";
-		return output;
-	}
 
+
+	// Getters & Settes
 	public ArrayList<Float> getxAxis() {
 		return xAxis;
 	}

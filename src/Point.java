@@ -9,14 +9,14 @@
  * 
  * @author Ernesto Echeverría González
  * @email alu0100881622@ull.edu.es
- * @since 05-03-2017
+ * @since 05-16-2017
  * @version 1.0.0
  */
 
 
 public class Point {
-	private int xAxis;
-	private int yAxis;
+	private int xAxis;												// X axis value of the 2D point
+	private int yAxis;												// Y axis value of the 2D point
 	
 	public Point() {
 		setxAxis(0);

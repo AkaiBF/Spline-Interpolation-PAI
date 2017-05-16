@@ -15,7 +15,7 @@ import javax.swing.JPanel;
  * 
  * @author Ernesto Echeverría González
  * @email alu0100881622@ull.edu.es
- * @since 05-03-2017
+ * @since 05-16-2017
  * @version 1.0.0
  */
 
@@ -24,6 +24,10 @@ public class GraphicScreen extends JPanel implements KeyListener {
 	private static final long serialVersionUID = 1L;
 
 	protected final int BORDERS = 20;
+	protected final int LEFTARROW = 37;
+	protected final int RIGHTARROW = 39;
+	protected final int UPARROW = 40;
+	protected final int DOWNARROW = 38;
 	
 	private Point axisZero;
 	private SetPoints setPoints;
@@ -41,6 +45,7 @@ public class GraphicScreen extends JPanel implements KeyListener {
 	public void clear() {
 		getSetPoints().clear();
 		repaint();
+		System.out.println("Repainted");
 	}
 	
 	public void paintComponent(Graphics graphicObject) {
@@ -81,13 +86,13 @@ public class GraphicScreen extends JPanel implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent event) {
-		if(event.getKeyCode() == 40)
+		if(event.getKeyCode() == UPARROW)
 			getSetPoints().selectedUp();
-		if(event.getKeyCode() == 37)
+		if(event.getKeyCode() == LEFTARROW)
 			getSetPoints().selectToLeft();
-		if(event.getKeyCode() == 39)
+		if(event.getKeyCode() == RIGHTARROW)
 			getSetPoints().selectToRight();
-		if(event.getKeyCode() == 38)
+		if(event.getKeyCode() == DOWNARROW)
 			getSetPoints().selectedDown();
 		repaint();
 			

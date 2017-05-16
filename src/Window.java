@@ -14,18 +14,18 @@ import javax.swing.JFrame;
  * 
  * @author Ernesto Echeverría González
  * @email alu0100881622@ull.edu.es
- * @since 05-03-2017
+ * @since 05-16-2017
  * @version 1.0.0
  */
 
 public class Window extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 
-	protected final int WIDTH = 1200;
-	protected final int HEIGHT = 500;
+	protected final int WIDTH = 1200;																						// By default width of the frame
+	protected final int HEIGHT = 500;																						// By default height of the frame
 
-	private Controller controller;
-	private GraphicScreen graphicScreen;
+	private Controller controller;																							// Controller of the application
+	private GraphicScreen graphicScreen;																				// Visualization panel of the application
 	
 	public Window() {
 		super();
@@ -36,9 +36,15 @@ public class Window extends JFrame implements ActionListener {
 		controller = new Controller();
 		graphicScreen = new GraphicScreen(15);
 		
+		// Set listeners
+		controller.getRefreshButton().addActionListener(this);
+		controller.getTextField().addActionListener(this);
+		
+		// Positioning into layout
 		setLayout(new BorderLayout());
-		add(new GraphicScreen(15), BorderLayout.CENTER);
+		add(graphicScreen, BorderLayout.CENTER);
 		add(controller, BorderLayout.SOUTH);
+		
 	}
 	
 	public static void main(String args[]) {
@@ -49,9 +55,16 @@ public class Window extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent event) {
 		if(event.getSource() == getController().getRefreshButton()) {
 			getGraphicScreen().clear();
+			getGraphicScreen().setSetPoints(new SetPoints(0));
+			getGraphicScreen().repaint();
+		}
+		if(event.getSource() == getController().getTextField()) {
+			getGraphicScreen().setSetPoints(new SetPoints(Integer.parseInt(getController().getTextField().getText())));
+			getGraphicScreen().repaint();
 		}
 	}
 	
+	// Gettes & Setters
 	public Controller getController() {
 		return controller;
 	}
