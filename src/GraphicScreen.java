@@ -23,11 +23,11 @@ import javax.swing.JPanel;
 public class GraphicScreen extends JPanel implements KeyListener {
 	private static final long serialVersionUID = 1L;
 
-	protected final int BORDERS = 20;
-	protected final int LEFTARROW = 37;
-	protected final int RIGHTARROW = 39;
-	protected final int UPARROW = 40;
-	protected final int DOWNARROW = 38;
+	protected final int BORDERS = 20;																		// Borders with the Axis
+	protected final int LEFTARROW = 37;																	// Code of the Left Arrow Key
+	protected final int RIGHTARROW = 39;																// Code of the Right Arrow Key
+	protected final int UPARROW = 40;																		// Code of the Up Arrow Key
+	protected final int DOWNARROW = 38;																	// Code of the Down Arrow Key
 	
 	private Point axisZero;
 	private SetPoints setPoints;
@@ -45,7 +45,6 @@ public class GraphicScreen extends JPanel implements KeyListener {
 	public void clear() {
 		getSetPoints().clear();
 		repaint();
-		System.out.println("Repainted");
 	}
 	
 	public void paintComponent(Graphics graphicObject) {

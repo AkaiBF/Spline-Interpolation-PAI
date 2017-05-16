@@ -1,6 +1,7 @@
 import java.awt.FlowLayout;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -22,6 +23,8 @@ import javax.swing.JTextField;
 public class Controller extends JPanel {
 	private static final long serialVersionUID = 1L;
 
+	protected final int IMGSIZE = 30;															// Image size
+	
 	private JTextField textField;
 	private JButton refreshButton;
 	
@@ -29,13 +32,19 @@ public class Controller extends JPanel {
 		setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 		setLayout(new FlowLayout());
 		
+		ImageIcon informationIcon = new ImageIcon("information.png");
+		informationIcon = new ImageIcon(informationIcon.getImage().getScaledInstance(IMGSIZE, IMGSIZE,  java.awt.Image.SCALE_SMOOTH));
+		InformationLabel informationLabel = new InformationLabel(informationIcon);
+		
 		textField = new JTextField(15);
 		refreshButton = new JButton("Refresh");
 		
 		add(textField);
 		add(refreshButton);
+		add(informationLabel);
 	}
-
+	
+	// Getters & Setters
 	public JTextField getTextField() {
 		return textField;
 	}
