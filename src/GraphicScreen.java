@@ -38,6 +38,11 @@ public class GraphicScreen extends JPanel implements KeyListener {
 		setSetPoints(new SetPoints(number));
 	}
 	
+	public void clear() {
+		getSetPoints().clear();
+		repaint();
+	}
+	
 	public void paintComponent(Graphics graphicObject) {
 		setAxisZero(new Point(BORDERS, (int) getSize().getHeight() - BORDERS));
 		graphicObject.setColor(Color.WHITE);

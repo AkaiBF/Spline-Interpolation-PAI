@@ -1,4 +1,6 @@
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
@@ -16,11 +18,14 @@ import javax.swing.JFrame;
  * @version 1.0.0
  */
 
-public class Window extends JFrame {
+public class Window extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 
 	protected final int WIDTH = 1200;
 	protected final int HEIGHT = 500;
+
+	private Controller controller;
+	private GraphicScreen graphicScreen;
 	
 	public Window() {
 		super();
@@ -28,12 +33,29 @@ public class Window extends JFrame {
 		setSize(WIDTH, HEIGHT);
 		setVisible(true);
 		
+		controller = new Controller();
+		graphicScreen = new GraphicScreen(15);
+		
 		setLayout(new BorderLayout());
 		add(new GraphicScreen(15), BorderLayout.CENTER);
-		add(new Controller(), BorderLayout.SOUTH);
+		add(controller, BorderLayout.SOUTH);
 	}
 	
 	public static void main(String args[]) {
 		new Window();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent event) {
+		if(event.getSource() == getController().getRefreshButton()) {
+			getGraphicScreen().clear();
+		}
+	}
+	
+	public Controller getController() {
+		return controller;
+	}
+	public GraphicScreen getGraphicScreen() {
+		return graphicScreen;
 	}
 }

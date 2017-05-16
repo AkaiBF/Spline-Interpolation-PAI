@@ -57,40 +57,48 @@ public class SetPoints {
 		getPoints().get(getSelectedPoint()).setyAxis(getPoints().get(getSelectedPoint()).getyAxis() - SPEED);
 	}
 	
+	public void clear() {
+		getPoints().clear();
+	}
+	
 	public int size() {
 		return getPoints().size();
 	}
 	
 	public void drawPoints(Graphics graphicObject, int width, int height, int borders) {
-		int factorX = width / size();
-		int factorY = height / MAXIMUM;
+		if(!getPoints().isEmpty()) {
+			int factorX = width / size();
+			int factorY = height / MAXIMUM;
 		
-		ArrayList<Float> xAxis = new ArrayList<Float>();
-		ArrayList<Float> yAxis = new ArrayList<Float>();
-		for(int i = 0; i < getPoints().size(); i++) {
-			xAxis.add((float) getPoints().get(i).getxAxis());
-			yAxis.add((float) getPoints().get(i).getyAxis());
-		}
+			ArrayList<Float> xAxis = new ArrayList<Float>();
+			ArrayList<Float> yAxis = new ArrayList<Float>();
+			for(int i = 0; i < getPoints().size(); i++) {
+				xAxis.add((float) getPoints().get(i).getxAxis());
+				yAxis.add((float) getPoints().get(i).getyAxis());
+			}
+			
+			if(getPoints().size() > 1) {
+				graphicObject.setColor(COLORLINE);
+				SplineInterpolator interpolation = new SplineInterpolator(xAxis, yAxis, null).createMonotoneCubicSpline(xAxis, yAxis);
+				for(int i = 0; i < width; i++) {
+					float interpolationYAxis = interpolation.function((float) i / ((float) width / (float) size()));
+					float interpolationYAxist1 = interpolation.function((float) (i + 1) / ((float) width / (float) size()));
+					graphicObject.drawLine(i + borders, (int) (interpolationYAxis * factorY + borders), i + 1 + borders, (int) (interpolationYAxist1 * factorY + borders));
+				}
+			}
 		
-		graphicObject.setColor(COLORLINE);
-		SplineInterpolator interpolation = new SplineInterpolator(xAxis, yAxis, null).createMonotoneCubicSpline(xAxis, yAxis);
-		for(int i = 0; i < width; i++) {
-			float interpolationYAxis = interpolation.function((float) i / ((float) width / (float) size()));
-			float interpolationYAxist1 = interpolation.function((float) (i + 1) / ((float) width / (float) size()));
-			graphicObject.drawLine(i + borders, (int) (interpolationYAxis * factorY + borders), i + 1 + borders, (int) (interpolationYAxist1 * factorY + borders));
-		}
-		
-		graphicObject.setColor(COLOR);
-		int counter = 0;
-		Iterator<Point> iterator = getPoints().iterator();
-		while(iterator.hasNext()) {
-			if(counter == getSelectedPoint()) 
-				graphicObject.setColor(SELECTEDCOLOR);
-			Point point = iterator.next();
-			graphicObject.drawOval(point.getxAxis() * factorX - RADIUS + borders, point.getyAxis() * factorY - RADIUS + borders, RADIUS * 2, RADIUS * 2);
-			if(counter == getSelectedPoint()) 
-				graphicObject.setColor(COLOR);
-			counter++;
+			graphicObject.setColor(COLOR);
+			int counter = 0;
+			Iterator<Point> iterator = getPoints().iterator();
+			while(iterator.hasNext()) {
+				if(counter == getSelectedPoint()) 
+					graphicObject.setColor(SELECTEDCOLOR);
+				Point point = iterator.next();
+				graphicObject.drawOval(point.getxAxis() * factorX - RADIUS + borders, point.getyAxis() * factorY - RADIUS + borders, RADIUS * 2, RADIUS * 2);
+				if(counter == getSelectedPoint()) 
+					graphicObject.setColor(COLOR);
+				counter++;
+			}
 		}
 	}
 	
