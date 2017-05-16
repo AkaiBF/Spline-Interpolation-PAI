@@ -102,17 +102,10 @@ public class SetPoints {
 		if(!getPoints().isEmpty()) {
 			int factorX = width / size() / SCALE;																							// Conversion factor for xAxis
 			int factorY = height / MAXIMUM;																						// Conversion factor for yAxis
-		
-			ArrayList<Float> xAxis = new ArrayList<Float>();
-			ArrayList<Float> yAxis = new ArrayList<Float>();
-			for(int i = 0; i < getPoints().size(); i++) {
-				xAxis.add((float) getPoints().get(i).getxAxis());
-				yAxis.add((float) getPoints().get(i).getyAxis());
-			}
 			
 			if(getPoints().size() > 1) {
 				graphicObject.setColor(COLORLINE);
-				SplineInterpolator interpolation = new SplineInterpolator(xAxis, yAxis);
+				SplineInterpolator interpolation = new SplineInterpolator(getPoints());
 				for(int i = 0; i < width; i++) {
 					float interpolationYAxis = interpolation.function((float) i * SCALE / ((float) width / (float) size()));
 					float interpolationYAxist1 = interpolation.function((float) (i * SCALE + 1) / ((float) width / (float) size()));

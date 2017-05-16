@@ -43,6 +43,22 @@ public class SplineInterpolator {
 		this.tangents = interpolator.getTangents();
 	}
 	/**
+	 * One-attribute constructor
+	 * @param points Array of 2D points
+	 */
+	public SplineInterpolator(ArrayList<Point> points) {
+		ArrayList<Float> xAxis = new ArrayList<Float>();
+		ArrayList<Float> yAxis = new ArrayList<Float>();
+		for(int i = 0; i < points.size(); i++) {
+			xAxis.add((float) points.get(i).getxAxis());
+			yAxis.add((float) points.get(i).getyAxis());
+		}
+		SplineInterpolator interpolator = new SplineInterpolator(xAxis, yAxis, null).createMonotoneCubicSpline(xAxis, yAxis);
+		this.xAxis = interpolator.getxAxis();
+		this.yAxis = interpolator.getyAxis();
+		this.tangents = interpolator.getTangents();
+	}
+	/**
 	 * Calculator of tangents using the Monotone Cubic Interpolation method
 	 * @param xAxis Array of X axis of points
 	 * @param yAxis Array of Y axis of points
