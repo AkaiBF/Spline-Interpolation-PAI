@@ -28,6 +28,8 @@ public class GraphicScreen extends JPanel implements KeyListener {
 	protected final int RIGHTARROW = 39;																// Code of the Right Arrow Key
 	protected final int UPARROW = 40;																		// Code of the Up Arrow Key
 	protected final int DOWNARROW = 38;																	// Code of the Down Arrow Key
+	protected final int AKEY = 65;																			// Code of the A Key
+	protected final int DKEY = 68;																			// Code of the D Key
 	
 	private Point axisZero;
 	private SetPoints setPoints;
@@ -93,6 +95,10 @@ public class GraphicScreen extends JPanel implements KeyListener {
 			getSetPoints().selectToRight();
 		if(event.getKeyCode() == DOWNARROW)
 			getSetPoints().selectedDown();
+		if(event.getKeyCode() == AKEY)
+			getSetPoints().selectToLeft();
+		if(event.getKeyCode() == DKEY)
+			getSetPoints().selectToRight();
 		repaint();
 			
 	}

@@ -30,8 +30,6 @@ public class Window extends JFrame implements ActionListener {
 	public Window() {
 		super();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(WIDTH, HEIGHT);
-		setVisible(true);
 		
 		controller = new Controller();
 		graphicScreen = new GraphicScreen(15);
@@ -45,6 +43,8 @@ public class Window extends JFrame implements ActionListener {
 		add(graphicScreen, BorderLayout.CENTER);
 		add(controller, BorderLayout.SOUTH);
 		
+		setSize(WIDTH, HEIGHT);
+		setVisible(true);
 	}
 	
 	public static void main(String args[]) {

@@ -27,7 +27,7 @@ public class InformationLabel extends JLabel implements MouseListener {
 			+ "<H1>Author: Ernesto Echeverría González</H1"
 			+ "<H2>University: Universidad de La Laguna</H2>"
 			+ "<H2><i>Subject: Programación de Aplicaciones Interactivas</i></H2>"
-			+ "<p>E-mail alu0100881622@ull.edu.es</p>"
+			+ "<p>E-mail: alu0100881622@ull.edu.es</p>"
 			+ "<p>Repository: https://github.com/AkaiBF/Spline-Interpolation-PAI</p>"
 			+ "<p>Country: Spain</p></html>";
 	
